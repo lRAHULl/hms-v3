@@ -8,7 +8,7 @@ package com.hms.model;
 public class Doctor extends User {
 	private int pkDoctorId;
 	private int experience;
-	private String doctorSpecilization;
+	private String doctorSpecialisation;
 
 	/**
 	 * Gets the doctorId.
@@ -51,8 +51,8 @@ public class Doctor extends User {
 	 *
 	 * @return specilization.
 	 */
-	public String getDoctorSpecilization() {
-		return doctorSpecilization;
+	public String getDoctorSpecialisation() {
+		return doctorSpecialisation;
 	}
 
 	/**
@@ -60,8 +60,8 @@ public class Doctor extends User {
 	 *
 	 * @param specilization String.
 	 */
-	public void setDoctorSpecilization(String doctorSpecilization) {
-		this.doctorSpecilization = doctorSpecilization;
+	public void setDoctorSpecialisation(String doctorSpecialisation) {
+		this.doctorSpecialisation = doctorSpecialisation;
 	}
 
 	/**
@@ -71,12 +71,13 @@ public class Doctor extends User {
 	 */
 	@Override
 	public String toString() {
-		return "Doctor [pkDoctorId=" + pkDoctorId + ", experience=" + experience + ", doctorSpecilization="
-				+ doctorSpecilization + ", getPkDoctorId()=" + getPkDoctorId() + ", getExperience()=" + getExperience()
-				+ ", getDoctorSpecilization()=" + getDoctorSpecilization() + ", getPkUserId()=" + getPkUserId()
+		return "Doctor [pkDoctorId=" + pkDoctorId + ", experience=" + experience + ", doctorSpecialisation="
+				+ doctorSpecialisation + ", getPkDoctorId()=" + getPkDoctorId() + ", getExperience()=" + getExperience()
+				+ ", getDoctorSpecialisation()=" + getDoctorSpecialisation() + ", getPkUserId()=" + getPkUserId()
 				+ ", getFkRoleId()=" + getFkRoleId() + ", getUsername()=" + getUsername() + ", getPassword()="
 				+ getPassword() + ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName()
 				+ ", getAge()=" + getAge() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + "]";
 	}
+
 }
