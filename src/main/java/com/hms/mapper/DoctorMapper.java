@@ -31,4 +31,12 @@ public interface DoctorMapper {
 
 	@Select("select * from t_user join t_patient on t_user.pk_user_id=t_patient.fk_user_id join t_patient_doctor_mapping on t_user.pk_user_id=t_patient_doctor_mapping.fk_patient_id join t_user as u on t_patient_doctor_mapping.fk_doctor_id=u.pk_user_id where u.is_deleted=0")
 	List<PatientForDoctor> getPatientsForDoctors();
+
+	void updateUser(Doctor doctor);
+
+	int deleteDoctor(Doctor doctor);
+
+	int updateDoctor(Doctor doctor);
+
+	void deleteUser(Doctor doctor);
 }
