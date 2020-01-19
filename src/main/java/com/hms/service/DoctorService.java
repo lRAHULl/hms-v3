@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,31 +14,102 @@ import com.hms.mapper.DoctorMapper;
 import com.hms.model.Doctor;
 import com.hms.model.PatientForDoctor;
 
+/**
+ * This class contains all the business logic for doctor routes.
+ * @author rahul
+ *
+ */
 @Service
 public class DoctorService {
 
+	private static final Logger LOGGER = LogManager.getLogger(DoctorService.class);
+	/**
+	 * Dependency Injection of the Mapper object.
+	 */
 	@Autowired
 	DoctorMapper mapper;
 	
+	/**
+	 * 
+	 * @return list of doctors from DB.
+	 */
 	public List<Doctor> getDoctors() {
+		LOGGER.traceEntry();
 		List<Doctor> doctors = mapper.getDoctors();
-		
+		LOGGER.traceExit(doctors.toString());
 		return doctors;
 	}
 	
+	/**
+	 * 
+	 * @param id of the doctor.
+	 * @return doctor as an object.
+	 */
 	public Doctor getDoctor(int id) {
+		LOGGER.entry(id);
 		Doctor doctor = mapper.getDoctor(id);
-		
+		LOGGER.traceExit(doctor.toString());
 		return doctor;
 	}
 	
+	/**
+	 * 
+	 * @param doctor as an object to create.
+	 * @return userId of the doctor.
+	 */
+	public int createDoctor(Doctor doctor) {
+		LOGGER.traceEntry(doctor.toString());
+		mapper.createUser(doctor);
+		mapper.createDoctor(doctor);
+		int userId = doctor.getPkUserId();
+		LOGGER.traceExit(userId);
+		return userId;
+	}
+	
+	/**
+	 * 
+	 * @param doctor as an object to update.
+	 * @return int rows affected.
+	 */
+	public int updateDoctor(Doctor doctor) {
+		LOGGER.traceEntry(doctor.toString());
+		mapper.updateUser(doctor);
+		int rowsAffected = mapper.updateDoctor(doctor);
+		LOGGER.traceExit(rowsAffected);
+		return rowsAffected;
+	}
+	
+	/**
+	 * 
+	 * @param doctor as an object to delete.
+	 * @return int rows affected.
+	 */
+	public int deleteDoctor(Doctor doctor) {
+		LOGGER.traceEntry(doctor.toString());
+		mapper.deleteUser(doctor);
+		int rowsAffected = mapper.deleteDoctor(doctor);
+		LOGGER.traceExit(rowsAffected);
+		return rowsAffected;
+	}
+	
+	/**
+	 *
+	 * @param id of the doctor to display their patients.
+	 * @return List of patients for that doctor.
+	 */
 	public List<PatientForDoctor> getPatientsForDoctor(int id) {
+		LOGGER.entry(id);
 		List<PatientForDoctor> patientsForDoctor = mapper.getPatientsForDoctor(id);
-		
+		LOGGER.traceExit(patientsForDoctor.toString());
 		return patientsForDoctor;
 	}
 	
+	/**
+	 * 
+	 * @return HashMap of doctorId as a key and list of patients as values.
+	 */
 	public Map<Integer, List<PatientForDoctor>> getPatientsForDoctors() {
+		LOGGER.traceEntry();
 		List<PatientForDoctor> list = mapper.getPatientsForDoctors();
 		Map<Integer, List<PatientForDoctor>> map = new HashMap<Integer, List<PatientForDoctor>>();
 		for (PatientForDoctor p : list) {
@@ -47,6 +120,7 @@ public class DoctorService {
 				map.get(p.getFkDoctorId()).add(p);
 			}
 		}
+		LOGGER.traceExit(map.toString());
 		return map;
 	}
 }
