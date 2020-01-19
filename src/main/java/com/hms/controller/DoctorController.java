@@ -1,7 +1,5 @@
 package com.hms.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hms.mapper.DoctorMapper;
 import com.hms.model.Doctor;
 import com.hms.model.PatientForDoctor;
+import com.hms.service.DoctorService;
 
 @RestController
 @RequestMapping(value = "/doctors")
@@ -25,15 +24,22 @@ public class DoctorController {
 
 	@Autowired
 	DoctorMapper mapper;
+	
+	@Autowired
+	DoctorService service;
 
 	@GetMapping("/")
 	public List<Doctor> getDoctors() {
-		return mapper.getDoctors();
+		List<Doctor> doctors = service.getDoctors();
+		
+		return doctors;
 	}
 
 	@GetMapping("/{id}")
 	public Doctor getDoctor(@PathVariable("id") int id) {
-		return mapper.getDoctor(id);
+		Doctor doctor = mapper.getDoctor(id);
+		
+		return doctor;
 	}
 
 	@PostMapping("/")
@@ -57,21 +63,15 @@ public class DoctorController {
 
 	@GetMapping("/{id}/patients")
 	public List<PatientForDoctor> getPatiensForDoctor(@PathVariable("id") int id) {
-		return mapper.getPatientsForDoctor(id);
+		List<PatientForDoctor> patientsForDoctor =  service.getPatientsForDoctor(id);
+		
+		return patientsForDoctor;
 	}
 
 	@GetMapping("/getPatients")
 	public Map<Integer, List<PatientForDoctor>> getPatientsForDoctors() {
-		List<PatientForDoctor> list = mapper.getPatientsForDoctors();
-		Map<Integer, List<PatientForDoctor>> map = new HashMap<Integer, List<PatientForDoctor>>();
-		for (PatientForDoctor p : list) {
-			if (map.containsKey(p.getFkDoctorId())) {
-				map.get(p.getFkDoctorId()).add(p);
-			} else {
-				map.put(p.getFkDoctorId(), new ArrayList<PatientForDoctor>());
-				map.get(p.getFkDoctorId()).add(p);
-			}
-		}
-		return map;
+		Map<Integer, List<PatientForDoctor>> patientsForDoctors = service.getPatientsForDoctors();
+		
+		return patientsForDoctors;
 	}
 }
