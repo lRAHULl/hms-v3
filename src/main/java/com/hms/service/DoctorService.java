@@ -1,9 +1,6 @@
 package com.hms.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.hms.mapper.DoctorMapper;
 import com.hms.model.Doctor;
-import com.hms.model.PatientForDoctor;
 
 /**
  * This class contains all the business logic for doctor routes.
+ *
  * @author rahul
  *
  */
@@ -28,9 +25,9 @@ public class DoctorService {
 	 */
 	@Autowired
 	DoctorMapper mapper;
-	
+
 	/**
-	 * 
+	 *
 	 * @return list of doctors from DB.
 	 */
 	public List<Doctor> getDoctors() {
@@ -39,21 +36,21 @@ public class DoctorService {
 		LOGGER.traceExit(doctors.toString());
 		return doctors;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param id of the doctor.
 	 * @return doctor as an object.
 	 */
 	public Doctor getDoctor(int id) {
-		LOGGER.entry(id);
+		LOGGER.traceEntry(Integer.toString(id));
 		Doctor doctor = mapper.getDoctor(id);
 		LOGGER.traceExit(doctor.toString());
 		return doctor;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param doctor as an object to create.
 	 * @return userId of the doctor.
 	 */
@@ -65,9 +62,9 @@ public class DoctorService {
 		LOGGER.traceExit(userId);
 		return userId;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param doctor as an object to update.
 	 * @return int rows affected.
 	 */
@@ -78,9 +75,9 @@ public class DoctorService {
 		LOGGER.traceExit(rowsAffected);
 		return rowsAffected;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param doctor as an object to delete.
 	 * @return int rows affected.
 	 */
@@ -91,36 +88,36 @@ public class DoctorService {
 		LOGGER.traceExit(rowsAffected);
 		return rowsAffected;
 	}
-	
+
 	/**
 	 *
 	 * @param id of the doctor to display their patients.
 	 * @return List of patients for that doctor.
 	 */
-	public List<PatientForDoctor> getPatientsForDoctor(int id) {
-		LOGGER.entry(id);
-		List<PatientForDoctor> patientsForDoctor = mapper.getPatientsForDoctor(id);
+	public List<Doctor> getPatientsForDoctor(int id) {
+		LOGGER.traceEntry(Integer.toString(id));
+		List<Doctor> patientsForDoctor = mapper.getPatientsForDoctor(id);
 		LOGGER.traceExit(patientsForDoctor.toString());
 		return patientsForDoctor;
 	}
-	
-	/**
-	 * 
-	 * @return HashMap of doctorId as a key and list of patients as values.
-	 */
-	public Map<Integer, List<PatientForDoctor>> getPatientsForDoctors() {
-		LOGGER.traceEntry();
-		List<PatientForDoctor> list = mapper.getPatientsForDoctors();
-		Map<Integer, List<PatientForDoctor>> map = new HashMap<Integer, List<PatientForDoctor>>();
-		for (PatientForDoctor p : list) {
-			if (map.containsKey(p.getFkDoctorId())) {
-				map.get(p.getFkDoctorId()).add(p);
-			} else {
-				map.put(p.getFkDoctorId(), new ArrayList<PatientForDoctor>());
-				map.get(p.getFkDoctorId()).add(p);
-			}
-		}
-		LOGGER.traceExit(map.toString());
-		return map;
-	}
+
+//	/**
+//	 *
+//	 * @return HashMap of doctorId as a key and list of patients as values.
+//	 */
+//	public List<Doctor> getPatientsForDoctors() {
+//		LOGGER.traceEntry();
+//	List<Doctor> list = mapper.getPatientsForDoctors();
+//		Map<Integer, List<PatientForDoctor>> map = new HashMap<Integer, List<PatientForDoctor>>();
+//		for (PatientForDoctor p : list) {
+//			if (map.containsKey(p.getFkDoctorId())) {
+//				map.get(p.getFkDoctorId()).add(p);
+//			} else {
+//				map.put(p.getFkDoctorId(), new ArrayList<PatientForDoctor>());
+//				map.get(p.getFkDoctorId()).add(p);
+//			}
+//		}
+//		LOGGER.traceExit(list.toString());
+//		return list;
+//	}
 }

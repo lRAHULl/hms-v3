@@ -12,22 +12,23 @@ import com.hms.model.Patient;
 
 /**
  * This Class contains all the business logic for handling patients.
+ * 
  * @author rahul
  *
  */
 @Service
 public class PatientService {
-	
+
 	private static final Logger LOGGER = LogManager.getLogger(PatientService.class);
-	
+
 	/**
-	 * Dependency Injection of mapper object. 
+	 * Dependency Injection of mapper object.
 	 */
 	@Autowired
 	PatientMapper mapper;
-	
+
 	/**
-	 * 
+	 *
 	 * @return list of patients.
 	 */
 	public List<Patient> getPatients() {
@@ -36,21 +37,21 @@ public class PatientService {
 		LOGGER.traceExit(patients.toString());
 		return patients;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param id of the patient to get the details.
 	 * @return the patient object.
 	 */
 	public Patient getPatient(int id) {
-		LOGGER.entry(id);
+		LOGGER.traceEntry(Integer.toString(id));
 		Patient patient = mapper.getPatient(id);
 		LOGGER.traceExit(patient.toString());
 		return patient;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param patient as an object to create.
 	 * @return the id of the created patient.
 	 */
@@ -62,9 +63,9 @@ public class PatientService {
 		LOGGER.traceExit(userId);
 		return userId;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param patient as an object to update.
 	 * @return the number of rows affected in the database.
 	 */
@@ -75,15 +76,15 @@ public class PatientService {
 		LOGGER.traceExit(rowsAffected);
 		return rowsAffected;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param patient as an object to delete.
 	 * @return the number of rows affected in the database.
 	 */
 	public int deletePatient(Patient patient) {
 		mapper.deleteUser(patient);
-		int rowsAffected =  mapper.deletePatient(patient);
+		int rowsAffected = mapper.deletePatient(patient);
 		LOGGER.traceExit(rowsAffected);
 		return rowsAffected;
 	}

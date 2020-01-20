@@ -34,6 +34,20 @@ task checkstyle {
     tasks.findByName('checkstyleTest').mustRunAfter 'checkstyleMain'
 }
 
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+
 dependencies {
  	// This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
@@ -58,13 +72,16 @@ dependencies {
 	compile group: 'javax.activation', name: 'activation', version: '1.1'
 	compile('org.glassfish.jaxb:jaxb-runtime:2.3.0')
 	
+	compile "org.flywaydb:flyway-core:6.1.4"
+	
 	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
 	
 	
 	// Logger
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.1'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
+	compile 'org.springframework.boot:spring-boot-starter-log4j2'
+    // compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.1'
+    // compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
 }
 
 test {

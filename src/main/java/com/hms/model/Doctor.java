@@ -1,5 +1,7 @@
 package com.hms.model;
 
+import java.util.List;
+
 /**
  * This is a Bean class used to represent the Doctor.
  *
@@ -9,6 +11,23 @@ public class Doctor extends User {
 	private int pkDoctorId;
 	private int experience;
 	private String doctorSpecialisation;
+	private List<Patient> patients;
+
+	/**
+	 *
+	 * @return patients as a list.
+	 */
+	public List<Patient> getPatients() {
+		return patients;
+	}
+
+	/**
+	 *
+	 * @param patients input.
+	 */
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
 
 	/**
 	 * Gets the doctorId.
