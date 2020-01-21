@@ -89,6 +89,8 @@ public class User {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+//		this.password = passwordEncoder.encode(password);
 	}
 
 	/**
