@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.model.Doctor;
+import com.hms.model.ResponseBody;
 import com.hms.service.DoctorService;
 
 /**
@@ -37,14 +38,17 @@ public class DoctorController {
 
 	/**
 	 *
-	 * @return list of doctors.
+	 * @return response body list of doctors.
 	 */
 	@GetMapping("/")
-	public List<Doctor> getDoctors() {
+	public ResponseBody getDoctors() {
 		LOGGER.traceEntry();
 		List<Doctor> doctors = service.getDoctors();
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(doctors);
 		LOGGER.traceExit(doctors.toString());
-		return doctors;
+		return response;
 	}
 
 	/**
@@ -53,11 +57,14 @@ public class DoctorController {
 	 * @return doctor as an object.
 	 */
 	@GetMapping("/{id}")
-	public Doctor getDoctor(@PathVariable("id") int id) {
+	public ResponseBody getDoctor(@PathVariable("id") int id) {
 		LOGGER.traceEntry(Integer.toString(id));
 		Doctor doctor = service.getDoctor(id);
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(doctor);
 		LOGGER.traceExit(doctor.toString());
-		return doctor;
+		return response;
 	}
 
 	/**
@@ -66,11 +73,14 @@ public class DoctorController {
 	 * @return userId of the doctor.
 	 */
 	@PostMapping("/")
-	public int createDoctor(@RequestBody Doctor doctor) {
+	public ResponseBody createDoctor(@RequestBody Doctor doctor) {
 		LOGGER.traceEntry(doctor.toString());
 		int userId = service.createDoctor(doctor);
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(userId);
 		LOGGER.traceExit(userId);
-		return userId;
+		return response;
 	}
 
 	/**
@@ -79,11 +89,14 @@ public class DoctorController {
 	 * @return int rows affected.
 	 */
 	@PutMapping("/")
-	public int updateDoctor(@RequestBody Doctor doctor) {
+	public ResponseBody updateDoctor(@RequestBody Doctor doctor) {
 		LOGGER.traceEntry(doctor.toString());
 		int rowsAffected = service.updateDoctor(doctor);
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(rowsAffected);
 		LOGGER.traceExit(rowsAffected);
-		return rowsAffected;
+		return response;
 	}
 
 	/**
@@ -92,11 +105,14 @@ public class DoctorController {
 	 * @return int rows affected.
 	 */
 	@DeleteMapping("/")
-	public int deleteDoctor(@RequestBody Doctor doctor) {
+	public ResponseBody deleteDoctor(@RequestBody Doctor doctor) {
 		LOGGER.traceEntry(doctor.toString());
 		int rowsAffected = service.deleteDoctor(doctor);
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(rowsAffected);
 		LOGGER.traceExit(rowsAffected);
-		return rowsAffected;
+		return response;
 	}
 
 	/**
@@ -104,15 +120,18 @@ public class DoctorController {
 	 * @return List of doctorId as a key and list of patients as values.
 	 */
 	@GetMapping("/getPatients")
-	public List<Doctor> getPatientsForDoctors(@RequestParam(name = "id", required = false) Integer id) {
+	public ResponseBody getPatientsForDoctors(@RequestParam(name = "id", required = false) Integer id) {
 		LOGGER.traceEntry();
 		if (id == null) {
 
 			id = 0;
 		}
 		List<Doctor> doctors = service.getPatientsForDoctor(id);
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(doctors);
 		LOGGER.traceExit(doctors.toString());
-		return doctors;
+		return response;
 	}
 
 //	/**
