@@ -74,7 +74,7 @@ public interface PatientMapper {
 	 * @return the number of rows affected in the DB.
 	 */
 	@Update(QueryConstants.USER_DELETE)
-	int deleteUser(Patient patient);
+	int deleteUser(int id);
 
 	/**
 	 * 
@@ -82,6 +82,6 @@ public interface PatientMapper {
 	 * @return the number of rows affected in the DB.
 	 */
 	@Update(QueryConstants.PATIENT_DELETE)
-	int deletePatient(Patient patient);
+	int deletePatient(int id);
 
 }

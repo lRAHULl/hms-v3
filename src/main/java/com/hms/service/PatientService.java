@@ -82,9 +82,9 @@ public class PatientService {
 	 * @param patient as an object to delete.
 	 * @return the number of rows affected in the database.
 	 */
-	public int deletePatient(Patient patient) {
-		mapper.deleteUser(patient);
-		int rowsAffected = mapper.deletePatient(patient);
+	public int deletePatient(int patientId) {
+		mapper.deleteUser(patientId);
+		int rowsAffected = mapper.deletePatient(patientId);
 		LOGGER.traceExit(rowsAffected);
 		return rowsAffected;
 	}

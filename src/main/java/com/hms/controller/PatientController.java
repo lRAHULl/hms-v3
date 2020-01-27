@@ -2,17 +2,11 @@ package com.hms.controller;
 
 import java.util.List;
 
+import com.hms.model.ResponseBody;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hms.model.Patient;
 import com.hms.service.PatientService;
@@ -23,6 +17,7 @@ import com.hms.service.PatientService;
  * @author rahul
  *
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/patients")
 public class PatientController {
@@ -66,11 +61,14 @@ public class PatientController {
 	 * @return int the id of the patient created.
 	 */
 	@PostMapping("/")
-	public int createPatient(@RequestBody Patient patient) {
+	public ResponseBody createPatient(@RequestBody Patient patient) {
 		LOGGER.traceEntry(patient.toString());
 		int userId = service.createPatient(patient);
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(userId);
 		LOGGER.traceExit(userId);
-		return userId;
+		return response;
 	}
 
 	/**
@@ -79,23 +77,29 @@ public class PatientController {
 	 * @return int the number of rows affected.
 	 */
 	@PutMapping("/")
-	public int updatePatient(@RequestBody Patient patient) {
+	public ResponseBody updatePatient(@RequestBody Patient patient) {
 		LOGGER.traceEntry(patient.toString());
 		int rowsAffected = service.updatePatient(patient);
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(rowsAffected);
 		LOGGER.traceExit(rowsAffected);
-		return rowsAffected;
+		return response;
 	}
 
 	/**
 	 *
-	 * @param patient as an object to delete.
+	 * @param id as an object to delete.
 	 * @return int the number of rows affected.
 	 */
-	@DeleteMapping("/")
-	public int deletePatient(@RequestBody Patient patient) {
-		LOGGER.traceEntry(patient.toString());
-		int rowsAffected = service.deletePatient(patient);
+	@DeleteMapping("/{id}")
+	public ResponseBody deletePatient(@PathVariable("id") int id) {
+		LOGGER.traceEntry("Id" + id);
+		int rowsAffected = service.deletePatient(id);
+		ResponseBody response = new ResponseBody();
+		response.setStatus(200);
+		response.setData(rowsAffected);
 		LOGGER.traceExit(rowsAffected);
-		return rowsAffected;
+		return response;
 	}
 }

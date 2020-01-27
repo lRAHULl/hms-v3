@@ -74,11 +74,11 @@ public interface DoctorMapper {
 
 	/**
 	 *
-	 * @param doctor as an object to delete.
+	 * @param id as an object to delete.
 	 * @return number of rows affected.
 	 */
 	@Update(QueryConstants.USER_DELETE)
-	int deleteUser(Doctor doctor);
+	int deleteUser(int id);
 
 	/**
 	 *
@@ -86,7 +86,7 @@ public interface DoctorMapper {
 	 * @return number of rows affected.
 	 */
 	@Update(QueryConstants.DOCTOR_DELETE)
-	int deleteDoctor(Doctor doctor);
+	int deleteDoctor(int id);
 
 	/**
 	 *

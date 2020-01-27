@@ -81,10 +81,10 @@ public class DoctorService {
 	 * @param doctor as an object to delete.
 	 * @return int rows affected.
 	 */
-	public int deleteDoctor(Doctor doctor) {
-		LOGGER.traceEntry(doctor.toString());
-		mapper.deleteUser(doctor);
-		int rowsAffected = mapper.deleteDoctor(doctor);
+	public int deleteDoctor(int id) {
+		LOGGER.traceEntry("id" + id);
+		mapper.deleteUser(id);
+		int rowsAffected = mapper.deleteDoctor(id);
 		LOGGER.traceExit(rowsAffected);
 		return rowsAffected;
 	}

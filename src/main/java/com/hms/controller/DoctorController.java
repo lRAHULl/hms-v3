@@ -5,15 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hms.model.Doctor;
 import com.hms.model.ResponseBody;
@@ -25,6 +17,7 @@ import com.hms.service.DoctorService;
  * @author rahul
  *
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/doctors")
 public class DoctorController {
@@ -41,14 +34,14 @@ public class DoctorController {
 	 * @return response body list of doctors.
 	 */
 	@GetMapping("/")
-	public ResponseBody getDoctors() {
+	public List<Doctor> getDoctors() {
 		LOGGER.traceEntry();
 		List<Doctor> doctors = service.getDoctors();
-		ResponseBody response = new ResponseBody();
-		response.setStatus(200);
-		response.setData(doctors);
+//		ResponseBody response = new ResponseBody();
+//		response.setStatus(200);
+//		response.setData(doctors);
 		LOGGER.traceExit(doctors.toString());
-		return response;
+		return doctors;
 	}
 
 	/**
@@ -57,14 +50,14 @@ public class DoctorController {
 	 * @return doctor as an object.
 	 */
 	@GetMapping("/{id}")
-	public ResponseBody getDoctor(@PathVariable("id") int id) {
+	public Doctor getDoctor(@PathVariable("id") int id) {
 		LOGGER.traceEntry(Integer.toString(id));
 		Doctor doctor = service.getDoctor(id);
-		ResponseBody response = new ResponseBody();
-		response.setStatus(200);
-		response.setData(doctor);
+//		ResponseBody response = new ResponseBody();
+//		response.setStatus(200);
+//		response.setData(doctor);
 		LOGGER.traceExit(doctor.toString());
-		return response;
+		return doctor;
 	}
 
 	/**
@@ -104,10 +97,10 @@ public class DoctorController {
 	 * @param doctor as an object to delete.
 	 * @return int rows affected.
 	 */
-	@DeleteMapping("/")
-	public ResponseBody deleteDoctor(@RequestBody Doctor doctor) {
-		LOGGER.traceEntry(doctor.toString());
-		int rowsAffected = service.deleteDoctor(doctor);
+	@DeleteMapping("/{id}")
+	public ResponseBody deleteDoctor(@PathVariable("id") int id) {
+		LOGGER.traceEntry("id:" + id);
+		int rowsAffected = service.deleteDoctor(id);
 		ResponseBody response = new ResponseBody();
 		response.setStatus(200);
 		response.setData(rowsAffected);
