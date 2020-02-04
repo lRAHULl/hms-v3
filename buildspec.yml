@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  build:
+    commands:
+      - echo Build started on `date`
+      - gradlew bootWar
+artifacts:
+  files:
+    - build/libs/hms-v3-0.0.1-SNAPSHOT.war
+    - appspec.yml
+  discard-paths: yes
