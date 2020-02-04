@@ -12,6 +12,6 @@ phases:
 artifacts:
   files:
     - build/libs/hms-v3-0.0.1-SNAPSHOT.war
-    - .ebextensions/**/*
+    - .ebextensions/fix-path.config
   base-directory: 'build/libs'
   discard-paths: yes
