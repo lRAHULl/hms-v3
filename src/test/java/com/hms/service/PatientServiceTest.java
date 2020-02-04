@@ -25,4 +25,35 @@ public class PatientServiceTest {
         assert patients.get(0).getUsername().equals("billnye1");
     }
 
+    @Test
+    public void createPatient() {
+        Patient patient = new Patient();
+        String username = "hjvfjbljavchgc";
+        patient.setUsername(username);
+        patient.setPassword("hello");
+        patient.setFirstName("th");
+        patient.setLastName("yh");
+        patient.setBloodGroup("A+");
+        patient.setPatientWeight(65);
+        patient.setPatientHeight(198);
+        int id = patientService.createPatient(patient);
+        assert patientService.getPatient(id).getUsername().equals(username);
+    }
+
+    @Test
+    public void updatePatient() {
+        Patient patient = new Patient();
+        patient.setPatientHeight(198);
+        patient.setPatientWeight(90);
+        patient.setPkUserId(51);
+        patient.setPassword("bill");
+        patient.setAge(18);
+        assert patientService.updatePatient(patient) == 1;
+    }
+
+    @Test
+    public void deletePatient() {
+        assert patientService.deletePatient(123) == 1;
+    }
+
 }
