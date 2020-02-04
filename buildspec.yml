@@ -7,9 +7,9 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - gradlew bootWar
+      - ./gradlew bootWar
 artifacts:
   files:
     - build/libs/hms-v3-0.0.1-SNAPSHOT.war
-    - appspec.yml
+    # - appspec.yml
   discard-paths: yes
