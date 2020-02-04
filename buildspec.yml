@@ -8,9 +8,9 @@ phases:
     commands:
       - chmod +x gradlew
       - echo Build started on `date`
-      - ./gradlew bootWar
+      - ./gradlew bootJar
 artifacts:
   files:
-    - build/libs/hms-v3-0.0.1-SNAPSHOT.war
+    - build/libs/hms-v3-0.0.1-SNAPSHOT.jar
     - .ebextensions\fix-path.config
   discard-paths: yes
